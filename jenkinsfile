@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Étape pour récupérer le code depuis le dépôt Git
-                git credentialsId: 'githubtoken', url: 'https://github.com/A-KHADIR/playwright_formation.git', branch: 'main'
+                git credentialsId: 'githubtoken', url: 'https://github.com/sidali01/playjenkins.git', branch: 'main'
             }
         }
         stage('Install Dependencies') {
