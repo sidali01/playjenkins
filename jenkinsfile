@@ -36,8 +36,8 @@ pipeline {
                 // Publier le rapport HTML dans Jenkins
                 publishHTML (target: [
                     allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
                     reportDir: 'playwright-report',
                     reportFiles: 'index.html',
                     reportName: 'Playwright Test Report'
