@@ -1,10 +1,5 @@
 pipeline {
     agent any
- tools {
-        nodejs 'NodeJS' // Assurez-vous que NodeJS est configuré dans Jenkins
-    }
-    environment {
-        CI = 'true' // Définit que nous sommes en CI (important pour Playwright)
  
     stages {
         stage('Checkout') {
