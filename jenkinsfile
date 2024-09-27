@@ -18,10 +18,47 @@ pipeline {
         stage('Run Tests') {
             steps {
                 // Étape pour exécuter les tests automatisés avec Playwright et Cucumber
-                bat 'npx playwright test --project="chromium" --headed' // Utilisation de 'bat' pour exécuter des commandes Windows
+                bat 'npx playwright test --reporter=html' // Utilisation de 'bat' pour exécuter des commandes Windows
                
 
             }
+        }
+
+        stage('Archive Playwright Report') {
+            steps {
+                // Archiver le rapport HTML généré par Playwright
+                archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
+            }
+        }
+
+        stage('Publish Playwright HTML Report') {
+            steps {
+                // Publier le rapport HTML dans Jenkins
+                publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Playwright Test Report'
+                ])
+            }
+        }
+    }
+
+
+    post {
+        always {
+            // Nettoyage si nécessaire après exécution
+            echo 'Pipeline terminé.'
+        }
+
+        failure {
+            echo "Les tests Playwright ont échoué."
+        }
+
+        success {
+            echo "Les tests Playwright ont réussi."
         }
     }
 }
